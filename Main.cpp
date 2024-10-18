@@ -94,11 +94,13 @@ int mostrarMenu() {
 int main() {
   ValidadorDeCadenas validador;
   int opcion = mostrarMenu();
-
+  string archivo;
   switch (opcion) {
   case 1: {
-
-    string rutaArchivo = "/Users/sebastianholweger/Downloads/Proyectofinal_Automatas-main/cadenas/cadenas.txt"; // Ruta relativa
+    cout<<"Por favor ingrese el nombre del archivo:"<<endl;
+    cin>>archivo;
+    system("pause");
+    string rutaArchivo = "/Users/sebastianholweger/Downloads/Proyectofinal_Automatas-main/cadenas/"+archivo; // Ruta relativa
     validador.cargarYValidarCadenas(rutaArchivo);
     system("pause");
     break;
