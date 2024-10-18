@@ -11,8 +11,7 @@ class ValidadorDeCadenas {
 public:
     // Función para cargar el archivo y validar cada cadena
     void cargarYValidarCadenas(const string& rutaArchivo) {
-        // Mostrar la ruta que se va a usar para abrir el archivo
-        cout << "Intentando abrir el archivo en la ruta: " << rutaArchivo << endl;
+        cout << "Iniciando la validacion de cadenas..." << endl;
 
         ifstream archivo(rutaArchivo);
         if (!archivo.is_open()) {
@@ -35,6 +34,7 @@ public:
         }
 
         archivo.close();
+        cout << "Finalizando la validacion de cadenas..." << endl;
     }
 
     // Función para limpiar espacios en blanco de las cadenas
@@ -47,7 +47,7 @@ public:
         // Vector de pares {expresión regular, nombre de la expresión}
         vector<pair<regex, string>> expresiones = {
             {regex("(a|b)*abb(ab)+"), "1"},
-            {regex("(ab)+abb(a|b)*(a|b)*"), "2"},
+            {regex("(ab)+abb(a|b)(a|b)"), "2"},
             {regex("(a|b)abb(ab)*(aa)+(bb)+"), "3"},
             {regex("(01)+1(0|1)*00(01)+"), "4"},
             {regex("110(0|1)*011(00)+"), "5"}
@@ -73,10 +73,39 @@ public:
     }
 };
 
+int mostrarMenu() {
+    int opcion;
+    cout << "------------------------------------------" << endl;
+    cout << "Bienvenido al Validador de Cadenas" << endl;
+    cout << "Seleccione una opcion:" << endl;
+    cout << "1. Validar cadenas desde un archivo" << endl;
+    cout << "2. Salir" << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "Ingrese su opcion: ";
+    cin >> opcion;
+    return opcion;
+}
+
 int main() {
     ValidadorDeCadenas validador;
-    string rutaArchivo = "../cadenas/cadenas.txt";  // Ruta relativa
-    validador.cargarYValidarCadenas(rutaArchivo);
+    int opcion = mostrarMenu();
+
+    switch (opcion) {
+    case 1: {
+        string rutaArchivo = "../cadenas/cadenas.txt"; // Ruta relativa
+        validador.cargarYValidarCadenas(rutaArchivo);
+        break;
+    }
+    case 2:
+        cout << "Gracias por usar el programa :p" << endl;
+        break;
+    default:
+        cout << "Opcion no valida. Terminando el programa." << endl;
+    }
+
+    // Pausa para evitar que la consola se cierre inmediatamente
+    cout << "Presiona cualquier tecla para cerrar el programa..." << endl;
+    system("pause"); // Detiene el programa hasta que el usuario presione una tecla
 
     return 0;
 }
