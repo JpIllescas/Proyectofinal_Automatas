@@ -1,9 +1,2 @@
-abbab
-abababbab
-aabbabb
-abbababb
-01 1000101 001101
-11001101100
-ababbb
-aabbaa
-1100110011
+ababba  
+ababababbab
