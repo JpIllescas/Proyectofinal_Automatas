@@ -19,7 +19,6 @@ public:
         }
 
         string linea;
-        bool algunaCadenaValida = false;
         int numCadena = 1;  // Para depuración
         while (getline(archivo, linea)) {
             limpiarEspacios(linea); // Limpiar espacios de la cadena
@@ -27,23 +26,25 @@ public:
             // Mostrar la cadena que estamos validando para depuración
             cout << "Validando cadena #" << numCadena++ << ": \"" << linea << "\"" << endl;
 
-            bool reconocida = validarExpresion2(linea); // Usar la cadena leída
-            if (reconocida) {
-                algunaCadenaValida = true;
+            bool reconocidaPorExp2 = validarExpresion2(linea);
+            bool reconocidaPorExp3 = validarExpresion3(linea);
+            // Aquí puedes añadir más expresiones (4, 5, etc.) cuando las tengas listas
+
+            if (reconocidaPorExp2) {
                 cout << "--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 2." << endl;
                 cout << "--------------------------------------------------------" << endl;
-            } else {
+            }
+            if (reconocidaPorExp3) {
                 cout << "--------------------------------------------------------" << endl;
-                cout << "La cadena \"" << linea << "\" NO es reconocida por la expresion 2." << endl;
+                cout << "La cadena \"" << linea << "\" es reconocida por la expresion 3." << endl;
                 cout << "--------------------------------------------------------" << endl;
             }
-        }
-
-        if (!algunaCadenaValida) {
-            cout << "--------------------------------------------------------" << endl;
-            cout << "Ninguna cadena fue reconocida por la expresion 2." << endl;
-            cout << "--------------------------------------------------------" << endl;
+            if (!reconocidaPorExp2 && !reconocidaPorExp3) { // Si no coincide con ninguna expresión
+                cout << "--------------------------------------------------------" << endl;
+                cout << "La cadena \"" << linea << "\" NO es reconocida por ninguna expresion." << endl;
+                cout << "--------------------------------------------------------" << endl;
+            }
         }
 
         archivo.close();
@@ -146,8 +147,122 @@ public:
         // El automata acepta la cadena si termina en los estados F, G o H
         return estado == 'F' || estado == 'G' || estado == 'H';
     }
+
+    // Función para validar la cadena según los estados proporcionados para la expresión 3
+    bool validarExpresion3(const string & cadena) {
+        char estado = 'A';  // Estado inicial
+
+        for (char c : cadena) { // Recorrer cada carácter de la cadena
+            switch (estado) {
+                case 'A':  // Estado A
+                    if (c == 'a') {
+                        estado = 'B';  // Transición de A a B con 'a'
+                    } else if (c == 'b') {
+                        estado = 'C';  // Transición de A a C con 'b'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'B':  // Estado B
+                    if (c == 'a') {
+                        estado = 'D';  // Transición de B a D con 'a'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'C':  // Estado C
+                    if (c == 'a') {
+                        estado = 'D';  // Transición de C a D con 'a'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'D':  // Estado D
+                    if (c == 'b') {
+                        estado = 'E';  // Transición de D a E con 'b'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'E':  // Estado E
+                    if (c == 'b') {
+                        estado = 'F';  // Transición de E a F con 'b'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'F':  // Estado F
+                    if (c == 'a') {
+                        estado = 'G';  // Transición de F a G con 'a'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'G':  // Estado G
+                    if (c == 'a') {
+                        estado = 'H';  // Transición de G a H con 'a'
+                    } else if (c == 'b') {
+                        estado = 'I';  // Transición de G a I con 'b'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'H':  // Estado H
+                    if (c == 'a') {
+                        estado = 'J';  // Transición de H a J con 'a'
+                    } else if (c == 'b') {
+                        estado = 'K';  // Transición de H a K con 'b'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'I':  // Estado I
+                    if (c == 'a') {
+                        estado = 'G';  // Transición de I a G con 'a'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'J':  // Estado J
+                    if (c == 'a') {
+                        estado = 'H';  // Transición de J a H con 'a'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'K':  // Estado J
+                    if (c == 'b') {
+                        estado = 'L';  // Transición de K a L con 'b'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'L':  // Estado J
+                    if (c == 'a') {
+                        estado = 'H';  // Transición de L a H con 'a'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+            }
+        }
+
+        return estado == 'L';  // Acepta solo si llega al estado L
+    }
 };
 
+// Menú de selección
 int mostrarMenu() {
     int opcion;
     cout << "--------------------------------------------------------" << endl;
@@ -155,7 +270,7 @@ int mostrarMenu() {
     cout << "Seleccione una opcion:" << endl;
     cout << "1. Validar cadenas desde un archivo" << endl;
     cout << "2. Salir" << endl;
-    cout << "--------------------------------------------------------" << endl; 
+    cout << "--------------------------------------------------------" << endl;
     cout << "Ingrese su opcion: ";
     cin >> opcion;
     return opcion;
@@ -182,7 +297,7 @@ int main() {
         system("pause");
         break;
     default:
-        cout << "Opción no válida. Terminando el programa.\n" << endl;
+        cout << "Opcion no valida. Terminando el programa.\n" << endl;
     }
 
     return 0;
