@@ -2,3 +2,8 @@ ababba
 ababababbab
 aabbaabb
 babbabaabb
+010110001
+101100001
+01100001
+01110001
+0111000101
