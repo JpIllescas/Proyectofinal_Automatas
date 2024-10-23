@@ -1,3 +1,7 @@
+aabbab
+babbab
+ababbabab
+bababab
 ababba  
 ababababbab
 aabbaabb
@@ -7,3 +11,6 @@ babbabaabb
 01100001
 01110001
 0111000101
+110001100
+11001100
+1100101100

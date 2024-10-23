@@ -26,11 +26,18 @@ public:
             // Mostrar la cadena que estamos validando para depuración
             cout << "Validando cadena #" << numCadena++ << ": \"" << linea << "\"" << endl;
 
+            bool reconocidaPorExp1 = validarExpresion1(linea);
             bool reconocidaPorExp2 = validarExpresion2(linea);
             bool reconocidaPorExp3 = validarExpresion3(linea);
             bool reconocidaPorExp4 = validarExpresion4(linea);
+            bool reconocidaPorExp5 = validarExpresion5(linea);
             // Aquí puedes añadir más expresiones (4, 5, etc.) cuando las tengas listas
 
+            if (reconocidaPorExp1) {
+                cout << "--------------------------------------------------------" << endl;
+                cout << "La cadena \"" << linea << "\" es reconocida por la expresion 1." << endl;
+                cout << "--------------------------------------------------------" << endl;
+            }
             if (reconocidaPorExp2) {
                 cout << "--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 2." << endl;
@@ -46,7 +53,12 @@ public:
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 4." << endl;
                 cout << "--------------------------------------------------------" << endl;
             }
-            if (!reconocidaPorExp2 && !reconocidaPorExp3 && !reconocidaPorExp4) { // Si no coincide con ninguna expresión
+            if (reconocidaPorExp5) {
+                cout << "--------------------------------------------------------" << endl;
+                cout << "La cadena \"" << linea << "\" es reconocida por la expresion 5." << endl;
+                cout << "--------------------------------------------------------" << endl;
+            }
+            if (!reconocidaPorExp1 && !reconocidaPorExp2 && !reconocidaPorExp3 && !reconocidaPorExp4 && !reconocidaPorExp5) { // Si no coincide con ninguna expresión
                 cout << "--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" NO es reconocida por ninguna expresion." << endl;
                 cout << "--------------------------------------------------------" << endl;
@@ -56,9 +68,9 @@ public:
         archivo.close();
         cout << "----------------------------------------------------------------------" << endl;
         cout << "Finalizando la validacion de cadenas..." << endl;
-        cout << "----------------------------------------------------------------------" << endl;
+        cout << "\n=======================================================================" << endl;
         cout << "Gracias por usar el programa :p" << endl;
-        cout << "=======================================================================" << endl;
+        cout << "=======================================================================\n" << endl;
         system("pause");
     }
 
@@ -66,6 +78,88 @@ public:
     void limpiarEspacios(string & cadena) {
         cadena.erase(remove(cadena.begin(), cadena.end(), ' '), cadena.end());
     }
+
+    // Función para validar la cadena según los estados que has proporcionado para la expresión 1
+    bool validarExpresion1(const string & cadena) {
+        char estado = 'A';  // Estado inicial
+
+        for (char c : cadena) { // Recorrer cada carácter de la cadena
+            switch (estado) {
+                case 'A':  // Estado A
+                    if (c == 'a') {
+                        estado = 'B';  // Transición de A a B con 'a'
+                    } else if (c == 'b') {
+                        estado = 'C';  // Transición de A a C con 'b'
+                    } else {
+                        return false;  // No hay transición válida para 'b'
+                    }
+                    break;
+
+                case 'B':  // Estado B
+                    if (c == 'a') {
+                        estado = 'B';  // Transición de B a C con 'b'
+                    } else if (c == 'b') {
+                        estado = 'D';  // Transición de B a D con 'b'
+                    } else {
+                        return false;  // No hay transición válida para 'a'
+                    }
+                    break;
+
+                case 'C':  // Estado C
+                    if (c == 'a') {
+                        estado = 'B';  // Transición de C a B con 'a'
+                    } else if (c == 'b') {
+                        estado = 'C';  // Transición de C a C con 'b'
+                    } else {
+                        return false;  // No hay transición válida para 'b'
+                    }
+                    break;
+
+                case 'D':  // Estado D
+                    if (c == 'a') {
+                        estado = 'B';  // Transición de D a B con 'a'
+                    } else if (c == 'b') {
+                        estado = 'E';  // Transición de D a E con 'b'
+                    } else {
+                        return false;  // No hay transición válida para 'a'
+                    }
+                    break;
+
+                case 'E':  // Estado E
+                    if (c == 'a') {
+                        estado = 'F';  // Transición de E a F con 'a'
+                    } else if (c == 'b') {
+                        estado = 'C';  // Transición de E a C con 'b'
+                    } else {
+                        return false;  // No hay transición válida para otro carácter
+                    }
+                    break;
+
+                case 'F':  // Estado F
+                    if (c == 'a') {
+                        estado = 'B';  // Transición de F a B con 'a'
+                    } else if (c == 'b') {
+                        estado = 'G';  // Transición de F a G con 'b'
+                    } else {
+                        return false;  // No hay transición válida para otro carácter
+                    }
+                    break;
+
+                case 'G':  // Estado G
+                    if (c == 'a') {
+                        estado = 'F';  // Transicion de G a B con 'a'
+                    } else if (c == 'b') {
+                        estado = 'E';  // Transicion de G a E con 'b'
+                    } else {
+                        return false;  // No hay transicion valida para otro caracter
+                    }
+                    break;
+            }
+        }
+        
+        return estado == 'G'; // El automata acepta la cadena si termina en G
+    }
+
 
     // Función para validar la cadena según los estados que has proporcionado para la expresión 2
     bool validarExpresion2(const string & cadena) {
@@ -372,6 +466,109 @@ public:
         }
 
         return estado == 'I';  // Acepta solo si llega al estado I
+    }
+
+    // Función para validar la cadena según los estados proporcionados para la expresión 5
+    bool validarExpresion5(const string & cadena) {
+        char estado = 'A';  // Estado inicial
+
+        for (char c : cadena) { // Recorrer cada carácter de la cadena
+            switch (estado) {
+                case 'A':  // Estado A
+                    if (c == '1') {
+                        estado = 'B';  // Transición de A a B con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'B':  // Estado B
+                    if (c == '1') {
+                        estado = 'C';  // Transición de B a C con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'C':  // Estado C
+                    if (c == '0') {
+                        estado = 'D';  // Transición de C a D con '0'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'D':  // Estado D
+                    if (c == '0') {
+                        estado = 'E';  // Transición de D a E con '0'
+                    } else if (c == '1') {
+                        estado = 'F';  // Transición de D a F con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'E':  // Estado E
+                    if (c == '0') {
+                        estado = 'E';  // Transición de E a E con '0'
+                    } else if (c == '1') {
+                        estado = 'G';  // Transición de E a G con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'F':  // Estado F
+                    if (c == '0') {
+                        estado = 'E';  // Transición de F a E con '0'
+                    } else if (c == '1') {
+                        estado = 'F';  // Transición de F a F con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'G':  // Estado G
+                    if (c == '0') {
+                        estado = 'E';  // Transición de G a E con '0'
+                    } else if (c == '1') {
+                        estado = 'H';  // Transición de G a H con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'H':  // Estado H
+                    if (c == '0') {
+                        estado = 'I';  // Transición de H a I con '0'
+                    } else if (c == '1') {
+                        estado = 'F';  // Transición de H a F con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'I':  // Estado I
+                    if (c == '0') {
+                        estado = 'J';  // Transición de I a J con '0'
+                    } else if (c == '1') {
+                        estado = 'G';  // Transición de I a G con '1'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+
+                case 'J':  // Estado J
+                    if (c == '0') {
+                        estado = 'I';  // Transición de J a I con '0'
+                    } else {
+                        return false;  // No hay transición válida
+                    }
+                    break;
+            }
+        }
+
+        return estado == 'J';  // Acepta solo si llega al estado J
     }
 
 };
