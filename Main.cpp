@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <algorithm> // Para usar std::remove
+#include <algorithm> 
 
 using namespace std;
 
@@ -31,37 +31,36 @@ public:
             bool reconocidaPorExp3 = validarExpresion3(linea);
             bool reconocidaPorExp4 = validarExpresion4(linea);
             bool reconocidaPorExp5 = validarExpresion5(linea);
-            // Aquí puedes añadir más expresiones (4, 5, etc.) cuando las tengas listas
 
             if (reconocidaPorExp1) {
-                cout << "--------------------------------------------------------" << endl;
+                cout << "\n--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 1." << endl;
-                cout << "--------------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------\n" << endl;
             }
             if (reconocidaPorExp2) {
-                cout << "--------------------------------------------------------" << endl;
+                cout << "\n--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 2." << endl;
-                cout << "--------------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------\n" << endl;
             }
             if (reconocidaPorExp3) {
-                cout << "--------------------------------------------------------" << endl;
+                cout << "\n--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 3." << endl;
-                cout << "--------------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------\n" << endl;
             }
             if (reconocidaPorExp4) {
-                cout << "--------------------------------------------------------" << endl;
+                cout << "\n--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 4." << endl;
-                cout << "--------------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------\n" << endl;
             }
             if (reconocidaPorExp5) {
-                cout << "--------------------------------------------------------" << endl;
+                cout << "\n--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" es reconocida por la expresion 5." << endl;
-                cout << "--------------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------\n" << endl;
             }
             if (!reconocidaPorExp1 && !reconocidaPorExp2 && !reconocidaPorExp3 && !reconocidaPorExp4 && !reconocidaPorExp5) { // Si no coincide con ninguna expresión
-                cout << "--------------------------------------------------------" << endl;
+                cout << "\n--------------------------------------------------------" << endl;
                 cout << "La cadena \"" << linea << "\" NO es reconocida por ninguna expresion." << endl;
-                cout << "--------------------------------------------------------" << endl;
+                cout << "--------------------------------------------------------\n" << endl;
             }
         }
 
@@ -79,7 +78,7 @@ public:
         cadena.erase(remove(cadena.begin(), cadena.end(), ' '), cadena.end());
     }
 
-    // Función para validar la cadena según los estados que has proporcionado para la expresión 1
+    // Función para validar la cadena según los estados que se han proporcionado para la expresión 1
     bool validarExpresion1(const string & cadena) {
         char estado = 'A';  // Estado inicial
 
@@ -97,11 +96,11 @@ public:
 
                 case 'B':  // Estado B
                     if (c == 'a') {
-                        estado = 'B';  // Transición de B a C con 'b'
+                        estado = 'B';  // Transición de B a B con 'a'
                     } else if (c == 'b') {
                         estado = 'D';  // Transición de B a D con 'b'
                     } else {
-                        return false;  // No hay transición válida para 'a'
+                        return false;  // No hay transición válida '
                     }
                     break;
 
@@ -111,7 +110,7 @@ public:
                     } else if (c == 'b') {
                         estado = 'C';  // Transición de C a C con 'b'
                     } else {
-                        return false;  // No hay transición válida para 'b'
+                        return false;  // No hay transición válida '
                     }
                     break;
 
@@ -147,7 +146,7 @@ public:
 
                 case 'G':  // Estado G
                     if (c == 'a') {
-                        estado = 'F';  // Transicion de G a B con 'a'
+                        estado = 'F';  // Transicion de G a F con 'a'
                     } else if (c == 'b') {
                         estado = 'E';  // Transicion de G a E con 'b'
                     } else {
@@ -161,7 +160,7 @@ public:
     }
 
 
-    // Función para validar la cadena según los estados que has proporcionado para la expresión 2
+    // Función para validar la cadena según los estados que se han proporcionado para la expresión 2
     bool validarExpresion2(const string & cadena) {
         char estado = 'A';  // Estado inicial
 
@@ -171,7 +170,7 @@ public:
                     if (c == 'a') {
                         estado = 'B';  // Transición de A a B con 'a'
                     } else {
-                        return false;  // No hay transición válida para 'b'
+                        return false;  // No hay transición válida 
                     }
                     break;
 
