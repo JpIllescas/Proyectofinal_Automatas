@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/sebastianholweger/Desktop/Proyecto Final - Automatas/output/Main'
+relocations:     []
+...
