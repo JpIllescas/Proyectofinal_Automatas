@@ -107,5 +107,3 @@ bool validarExpresion4(const std::string & cadena) {
 
   return estado == 'I'; // Acepta solo si llega al estado I
 }
-
-//bool validarArbol4(const std::string & cadena){}

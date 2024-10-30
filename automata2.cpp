@@ -87,4 +87,3 @@ bool validarExpresion2(const std::string & cadena) {
   // El automata acepta la cadena si termina en los estados F, G o H
   return estado == 'F' || estado == 'G' || estado == 'H';
 }
-//bool validarArbol2(const std::string & cadena){}
